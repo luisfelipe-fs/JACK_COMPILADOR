@@ -1,0 +1,2 @@
+class EOFException (Exception):
+    pass
