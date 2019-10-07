@@ -45,11 +45,11 @@ class CompilerEngine (JackTokenizer):
         self.xml += '<%s>%s</%s>\n'%(self.tokenType(), self.xmlContent(), self.tokenType())
         self.advance()
 
-    def cEat (self, symbol): # Conditional Eat
-        if self.getToken().__eq__(symbol):
+    def cEat (self, token): # Conditional Eat
+        if self.getToken().__eq__(token):
             self.eat(self.tokenType())
         else:
-            self.error(symbol)
+            self.error(token)
 
     def compileTerm (self):
         self.xml += '<term>\n'
@@ -248,3 +248,9 @@ class CompilerEngine (JackTokenizer):
             self.compileSubroutineDec()
         self.cEat('}')
         self.xml += '</class>\n'
+
+if __name__ == '__main__':
+    engine = CompilerEngine('Square.jack')
+    engine.compileClass()
+    engine.generateXML()
+    print(engine.xml)
