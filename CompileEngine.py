@@ -148,7 +148,7 @@ class CompilerEngine (JackTokenizer):
         self.cEat('{')
         self.compileStatements()
         self.cEat('}')
-        self.xml += '</whileStatement>'
+        self.xml += '</whileStatement>\n'
 
     def compileDo (self):
         self.xml += '<doStatement>\n'
@@ -177,12 +177,15 @@ class CompilerEngine (JackTokenizer):
             self.error(self.KEYWORD_TYPES+[Token.TK_IDENTIFIER])
 
     def compileVarDec (self):
+        self.xml += '<varDec>\n'
         self.cEat('var')
         self.compileType()
+        self.eat(Token.TK_IDENTIFIER)
         while self.getToken().__eq__(','):
             self.eat(Token.TK_SYMBOL)
             self.eat(Token.TK_IDENTIFIER)
         self.cEat(';')
+        self.xml += '</varDec>\n'
 
     def compileSubroutineBody (self):
         self.xml += '<subroutineBody>\n'
@@ -250,7 +253,7 @@ class CompilerEngine (JackTokenizer):
         self.xml += '</class>\n'
 
 if __name__ == '__main__':
-    engine = CompilerEngine('Square.jack')
+    engine = CompilerEngine('SquareGame.jack')
     engine.compileClass()
     engine.generateXML()
     print(engine.xml)
