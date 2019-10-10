@@ -7,6 +7,7 @@ TOKEN_REGEX = '[a-zA-Z_][a-zA-Z0-9_]*|[\{\}\(\)\[\]\.\,;\+\-\*/&|\<\>\=~]|[0-9]+
 
 class JackTokenizer:
     def __init__ (self, path):
+        self.path = path
         self._tokens = [None]
         with open(path) as f:
             lines = f.readlines()
@@ -21,7 +22,7 @@ class JackTokenizer:
                 if cFlag.__eq__(1):
                     match = re.search('/\*', line)
                     if match:
-                        line = line[0:match.start()]
+                        line = line[match.end():]
                         cFlag = 2
                     else:
                         cFlag = 0
@@ -48,22 +49,22 @@ class JackTokenizer:
         if self._tokens:
             return self._tokens[0].kind()
         else:
-            raise EOFException("EOF")
+            raise EOFException("%s: Unexpected EOF" % self.path)
 
     def getToken (self):
         if self._tokens:
             return self._tokens[0].token()
         else:
-            raise EOFException("EOF")
+            raise EOFException("%s: Unexpected EOF" % self.path)
 
     def getLine (self):
         if self._tokens:
             return self._tokens[0].line()
         else:
-            raise EOFException("EOF")
+            raise EOFException("%s: Unexpected EOF" % self.path)
 
     def getTokenObject (self):
         if self._tokens:
             return self._tokens[0]
         else:
-            raise EOFException("EOF")
+            raise EOFException("%s: Unexpected EOF" % self.path)
