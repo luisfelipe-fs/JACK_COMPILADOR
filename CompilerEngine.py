@@ -24,7 +24,7 @@ class CompilerEngine (JackTokenizer):
         currentToken = self.getToken()
         if tokenClass != Token.TK_STRING:
             try:
-                currentToken = REPLACEMENTS[currentToken]
+                currentToken = self.REPLACEMENTS[currentToken]
             except:
                 pass
             return currentToken
