@@ -25,7 +25,7 @@ class CompilerEngine (JackTokenizer):
         if tokenClass != Token.TK_STRING:
             try:
                 currentToken = self.REPLACEMENTS[currentToken]
-            except:
+            except KeyError:
                 pass
             return currentToken
         else:
@@ -272,7 +272,7 @@ class CompilerEngine (JackTokenizer):
     def compile (self):
         self.compileClass()
         self.generateXML()
-        print('Sucessful compiling of "%s"!' % self.path)
+        print('Successful compiling of "%s"!' % self.path)
 
 if __name__ == '__main__':
     import os, sys
