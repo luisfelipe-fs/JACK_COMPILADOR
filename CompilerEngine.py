@@ -82,7 +82,7 @@ class CompilerEngine (JackTokenizer):
     def compileExpression (self):
         self.xml += '<expression>\n'
         self.compileTerm()
-        if self.getToken() in self.B_OPERATOR:
+        while self.getToken() in self.B_OPERATOR:
             self.eat(Token.TK_SYMBOL)
             self.compileTerm()
         self.xml += '</expression>\n'
