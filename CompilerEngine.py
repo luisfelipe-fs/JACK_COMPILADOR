@@ -2,6 +2,7 @@ from JackTokenizer import JackTokenizer
 from Token import Token
 from CompilerException import CompilerException
 from EOFException import EOFException
+import sys
 
 class CompilerEngine (JackTokenizer):
     B_OPERATOR = ['+', '-', '*', '/', '&', '|', '<', '>', '=']
@@ -36,7 +37,11 @@ class CompilerEngine (JackTokenizer):
             f.write(self.xml)
 
     def error (self, expected):
-        raise CompilerException("Line %s: Expected '%s', got '%s'." % (self.getLine()+1, expected, self.getToken()))
+        #raise CompilerException("Line %s: Expected '%s', got '%s'." % (self.getLine()+1, expected, self.getToken()))
+        print("\n# On file '%s', got following error:" % self.path, file=sys.stderr)
+        fancyExpected = ' or '.join([repr(x) for x in expected]) if isinstance(expected, (tuple, list)) else expected
+        print("# Line %s: Expected %s, got '%s'." % (self.getLine()+1, fancyExpected, self.getToken()), file=sys.stderr)
+        raise CompilerException("Get out.")
 
     def eat (self, *types):
         if self.tokenType() not in types:
@@ -270,7 +275,11 @@ class CompilerEngine (JackTokenizer):
         self.xml += '</class>\n'
 
     def compile (self):
-        self.compileClass()
+        try:
+            self.compileClass()
+        except CompilerException:
+            print("# Compilation failed.\n", file=sys.stderr)
+            return
         self.generateXML()
         print('Successful compiling of "%s"!' % self.path)
 
@@ -286,4 +295,4 @@ if __name__ == '__main__':
         else:
             print("Not supported file type.")
     else:
-        CompilerEngine('Main.jack').compile()
+        CompilerEngine('JackFiles/Basic.jack').compile()
