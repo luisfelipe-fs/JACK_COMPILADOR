@@ -295,4 +295,4 @@ if __name__ == '__main__':
         else:
             print("Not supported file type.")
     else:
-        CompilerEngine('JackFiles/Basic.jack').compile()
+        CompilerEngine('Main.jack').compile()
