@@ -30,6 +30,14 @@ class Token:
     def __repr__ (self):
         return repr(self._token)
 
+    def __eq__ (self, other):
+        if type(other).__eq__(str):
+            return self._token == other
+        elif type(other).__eq__(Token):
+            return self._token == other._token
+        else:
+            return self == other
+
     def token (self):
         return self._token
 
