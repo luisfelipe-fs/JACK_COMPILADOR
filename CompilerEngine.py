@@ -27,7 +27,6 @@ class CompilerEngine (JackTokenizer):
         self.vm = VMWriter(self.path[:-5]+'.vm')
         self.className = str()
         self.labelCounter = 0
-        self.oldContext = list()
         self.currentFunctionName = str()
         self.currentSubroutineType = str()
 
