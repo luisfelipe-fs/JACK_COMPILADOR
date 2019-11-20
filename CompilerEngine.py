@@ -48,7 +48,6 @@ class CompilerEngine (JackTokenizer):
             f.write(self.xml)
 
     def error (self, expected):
-        #raise CompilerException("Line %s: Expected '%s', got '%s'." % (self.getLine()+1, expected, self.getToken()))
         print("\n# On file '%s', got following error:" % self.path, file=sys.stderr)
         fancyExpected = ' or '.join([repr(x) for x in expected]) if isinstance(expected, (tuple, list)) else expected
         print("# Line %s: Expected %s, got '%s'." % (self.getLine()+1, fancyExpected, self.getToken()), file=sys.stderr)
@@ -331,7 +330,6 @@ class CompilerEngine (JackTokenizer):
             self.compileVarDec()
         self.vm.writeFunction('%s.%s' % (self.className, self.currentFunctionName), self.st.varCount('local'))
         if self.currentSubroutineType.__eq__('method'):
-            #self.st.define('this', self.className, 'argument')
             self.vm.writePush('argument', 0)
             self.vm.writePop('pointer', 0)
         elif self.currentSubroutineType.__eq__('constructor'):
@@ -420,11 +418,8 @@ class CompilerEngine (JackTokenizer):
         while self.getToken() in self.KEYWORD_CLASS_VAR_TYPE:
             self.compileClassVarDec()
         while self.getToken() in self.KEYWORD_SUBROUTINE:
-            #oldContext = dict(self.st.subRoutineTable)
-            #self.st.startSubroutine()
             self.compileSubroutineDec()
             self.st.startSubroutine()
-            #self.st.subRoutineTable = oldContext
             
         self.cEat('}')
         self.xml += '</class>\n'
@@ -434,8 +429,7 @@ class CompilerEngine (JackTokenizer):
             self.compileClass()
         except CompilerException as e:
             print("# Compilation failed.\n", file=sys.stderr)
-            raise e
-            #return
+            return
         self.generateXML()
         self.vm.close()
         print('Successful compiling of "%s"!' % self.path)
