@@ -30,7 +30,7 @@ class SymbolTable:
     
     def varCount (self, entryKind):
         table = self.getTableByKind(entryKind)
-        return len([1 for entry in table if table[entry][self.TABLE_KIND].__eq__(entryKind)])
+        return self.currentIndex[entryKind]+1
     
     def kindOf (self, entryName):
         if entryName in self.subRoutineTable:

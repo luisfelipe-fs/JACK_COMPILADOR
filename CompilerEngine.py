@@ -236,12 +236,12 @@ class CompilerEngine (JackTokenizer):
         self.vm.writeArithmetic('~')
         self.labelCounter += 2
         thisLabel = self.labelCounter
-        self.vm.writeIf('L%d' % (thisLabel-1))
+        self.vm.writeIf('%s.L%d' % (self.className, thisLabel-1))
         self.cEat(')')
         self.cEat('{')
         self.compileStatements()
-        self.vm.writeGoto('L%d' % thisLabel)
-        self.vm.writeLabel('L%d' % (thisLabel-1))
+        self.vm.writeGoto('%s.L%d' % (self.className, thisLabel))
+        self.vm.writeLabel('%s.L%d' % (self.className, thisLabel-1))
         self.cEat('}')
         try:
             if self.getToken().__eq__('else'):
@@ -251,7 +251,7 @@ class CompilerEngine (JackTokenizer):
                 self.cEat('}')
         except EOFException:
             pass
-        self.vm.writeLabel('L%d' % thisLabel)
+        self.vm.writeLabel('%s.L%d' % (self.className, thisLabel))
         self.xml += '</ifStatement>\n'
 
     def compileWhile (self):
@@ -260,15 +260,15 @@ class CompilerEngine (JackTokenizer):
         self.cEat('(')
         self.labelCounter += 2
         thisLabel = self.labelCounter
-        self.vm.writeLabel('L%d' % (thisLabel-1))
+        self.vm.writeLabel('%s.L%d' % (self.className, thisLabel-1))
         self.compileExpression()
         self.vm.writeArithmetic('~')
-        self.vm.writeIf('L%d' % thisLabel)
+        self.vm.writeIf('%s.L%d' % (self.className, thisLabel))
         self.cEat(')')
         self.cEat('{')
         self.compileStatements()
-        self.vm.writeGoto('L%d' % (thisLabel-1))
-        self.vm.writeLabel('L%d' % thisLabel)
+        self.vm.writeGoto('%s.L%d' % (self.className, thisLabel-1))
+        self.vm.writeLabel('%s.L%d' % (self.className, thisLabel))
         self.cEat('}')
         self.xml += '</whileStatement>\n'
 
@@ -431,7 +431,7 @@ class CompilerEngine (JackTokenizer):
             return
         self.generateXML()
         self.vm.close()
-        print('Successful compiling of "%s"!' % self.path)
+        print('Successful compiling of "%s"' % self.path)
 
 if __name__ == '__main__':
     import os, sys
@@ -445,4 +445,4 @@ if __name__ == '__main__':
         else:
             print("Not supported file type.")
     else:
-        CompilerEngine('JackFiles/Main.jack').compile()
+        CompilerEngine('Main.jack').compile()
