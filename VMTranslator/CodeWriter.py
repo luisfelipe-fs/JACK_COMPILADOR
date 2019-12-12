@@ -11,34 +11,34 @@ class CodeWriter:
     def writePushPop (self, command, segment, index):
         if command.__eq__('push'):
             if segment in self.SEGMENTS:
-                with open('commands/pushSegment') as f:
+                with open('VMTranslator/commands/pushSegment') as f:
                     self.out += f.read().format(segment=self.SEGMENTS[segment], index=index)
             elif segment.__eq__('constant'):
                 with open('VMTranslator/commands/pushConstant') as f:
                     self.out += f.read().format(value=index)
             elif segment.__eq__('static'):
-                with open('commands/pushFrom') as f:
+                with open('VMTranslator/commands/pushFrom') as f:
                     self.out += f.read().format(reference='%s.%s' % (self.filename, index))
             elif segment.__eq__('temp'):
-                with open('commands/pushFrom') as f:
+                with open('VMTranslator/commands/pushFrom') as f:
                     self.out += f.read().format(reference='R%s' % (5+int(index)))
             elif segment.__eq__('pointer'):
-                with open('commands/pushPointer') as f:
+                with open('VMTranslator/commands/pushPointer') as f:
                     self.out += f.read().format(pointer=self.POINTERS[index])
             else:
                 raise Exception("Invalid segment: %s" % segment)
         elif command.__eq__('pop'):
             if segment in self.SEGMENTS:
-                with open('commands/popSegment') as f:
+                with open('VMTranslator/commands/popSegment') as f:
                     self.out += f.read().format(segment=self.SEGMENTS[segment], index=index)
             elif segment.__eq__('static'):
-                with open('commands/popTo') as f:
+                with open('VMTranslator/commands/popTo') as f:
                     self.out += f.read().format(reference='%s.%s' % (self.filename, index))
             elif segment.__eq__('temp'):
-                with open('commands/popTo') as f:
+                with open('VMTranslator/commands/popTo') as f:
                     self.out += f.read().format(reference='R%s' % (5+int(index)))
             elif segment.__eq__('pointer'):
-                with open('commands/popPointer') as f:
+                with open('VMTranslator/commands/popPointer') as f:
                     self.out += f.read().format(pointer=self.POINTERS[index])
             else:
                 raise Exception("Invalid segment: %s" % segment)
@@ -50,7 +50,7 @@ class CodeWriter:
 
     def writeArithmetic (self, arithmetic):
         try:
-            with open('commands/' + arithmetic) as f:
+            with open('VMTranslator/commands/' + arithmetic) as f:
                 self.out += f.read()
         except FileNotFoundError:
             raise Exception("Invalid command: %s" % arithmetic)
