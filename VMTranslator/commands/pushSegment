@@ -1,0 +1,11 @@
+// push {segment} {index}
+@{index}
+D=A
+@{segment}
+A=D+M
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1

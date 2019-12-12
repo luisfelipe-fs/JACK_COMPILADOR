@@ -1,0 +1,8 @@
+// push ram {reference}
+@{reference}
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
