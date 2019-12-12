@@ -101,8 +101,8 @@ class CompilerEngine (JackTokenizer):
             if self.getToken().__eq__('this'):
                 self.vm.writePush('pointer', 0)
             elif self.getToken().__eq__('true'):
-                self.vm.writePush('constant', 0)
-                self.vm.writeArithmetic('~')
+                self.vm.writePush('constant', 1)
+                self.vm.writeArithmetic('!')
             else:
                 self.vm.writePush('constant', 0)
             self.eat(Token.TK_KEYWORD)
