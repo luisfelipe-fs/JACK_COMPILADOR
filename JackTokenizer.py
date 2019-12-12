@@ -13,7 +13,6 @@ class JackTokenizer:
             lines = f.readlines()
             cFlag = 0 # comment flag
             for index, line in enumerate(lines):
-                line = line[:-1]
                 if cFlag.__eq__(0):
                     match = re.search('//', line)
                     if match:
