@@ -32,7 +32,7 @@ class Parser:
                     else:
                         continue
                 if line != str():
-                    rawTokens = re.findall('[A-Za-z0-9\-\$\.]+', line)
+                    rawTokens = re.findall('[A-Za-z0-9\-\$\.\_]+', line)
                     self.tokens.append(VMToken(rawTokens[0], rawTokens[1:], index))
 
     def hasMoreTokens (self):
