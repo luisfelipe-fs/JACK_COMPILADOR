@@ -1,14 +1,14 @@
-// lt
-@SP
+@SP // lt
 M=M-1
 A=M
 D=M
-M=-1
 @SP
 A=M-1
-@label{counter}
-D=M-D;JLT
+D=M-D
+M=-1
+@{label}
+D;JLT
 @SP
-A=M
+A=M-1
 M=0
-(label{counter})
+({label})

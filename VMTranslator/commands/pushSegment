@@ -1,5 +1,4 @@
-// push {segment} {index}
-@{index}
+@{index} // push {segment} {index}
 D=A
 @{segment}
 A=D+M

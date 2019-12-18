@@ -1,5 +1,4 @@
-// push constant {value}
-@{value}
+@{value} // push constant {value}
 D=A
 @SP
 A=M

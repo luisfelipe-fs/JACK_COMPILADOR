@@ -1,5 +1,4 @@
-// push {pointer}
-@{pointer}
+@{pointer} // push {pointer}
 D=M
 @SP
 A=M

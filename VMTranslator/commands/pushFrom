@@ -1,5 +1,4 @@
-// push ram {reference}
-@{reference}
+@{reference} // push ram {reference}
 D=M
 @SP
 A=M

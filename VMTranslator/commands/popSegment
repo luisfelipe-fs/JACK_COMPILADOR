@@ -1,5 +1,4 @@
-// pop {segment} {index}
-@{index}
+@{index} // pop {segment} {index}
 D=A
 @{segment}
 D=D+M
