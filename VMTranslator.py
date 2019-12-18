@@ -32,16 +32,18 @@ class VMTranslator:
                 self.cw.writeFunction(token.getArg(0), token.getArg(1))
             elif token.getToken().__eq__('return'):
                 self.cw.writeReturn()
-                
-        with open(self.path[:-3] + '.asm', 'w') as f:
-            f.write(self.cw.out)
         print("Translate of '%s' done." % self.path)
 
 if __name__ == '__main__':
     import os, sys
     if len(sys.argv) > 1:
         if os.path.isfile(sys.argv[1]):
-            VMTranslator(sys.argv[1]).translate()
+            vmt = VMTranslator(sys.argv[1])
+            vmt.translate()
+            with open(sys.argv[1][:-3]+'.asm', 'w') as f:
+                print("Generated: '%s'" % (sys.argv[1][:-3]+'.asm'))
+                f.write(vmt.cw.out)
+                
         elif os.path.isdir(sys.argv[1]):
             counter = 1
             out = '@256 // bootstrap\n'
