@@ -1,6 +1,5 @@
 # JACK_COMPILADOR
-Implementação de um compilador para a linguagem Jack.
-Trabalho da disciplina de Compiladores do curso de Engenharia da Computação - UFMA.
+Implementação de um compilador para a linguagem Jack
 
 Tradução via linha de comando: **python "VMTranslator.py" "arquivo ou diretório"**.
 - Único .vm (Exceto **Sys.vm**): **Traduzir o arquivo diretamente!**
